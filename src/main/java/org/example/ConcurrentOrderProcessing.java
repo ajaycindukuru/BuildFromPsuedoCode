@@ -87,8 +87,9 @@ public class ConcurrentOrderProcessing {
                 System.out.println("Order " +thisOrder.orderId() + ": " + product.productName() +" is Out of stock");
                 return;
             } else {
-                topOrders.computeIfAbsent(product.productId(), k -> new AtomicInteger(0)).addAndGet(saleQuantity);
                 product.quantity().addAndGet(-saleQuantity);
+                topOrders.computeIfAbsent(product.productId(), k -> new AtomicInteger()).addAndGet(saleQuantity);
+
             }
         }
     }
