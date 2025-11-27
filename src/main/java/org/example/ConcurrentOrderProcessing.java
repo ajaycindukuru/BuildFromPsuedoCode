@@ -4,7 +4,6 @@ package org.example;
 import org.example.model.Order;
 import org.example.model.Product;
 
-import java.sql.SQLOutput;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -76,7 +75,6 @@ public class ConcurrentOrderProcessing {
                }
                var totalPrice = sales.entrySet().stream().mapToDouble(map -> map.getKey().price() * map.getValue()).sum();
                var order = new Order(orderId, sales, totalPrice);
-           System.out.println(order);
                queue.put(order);
            }
        }
