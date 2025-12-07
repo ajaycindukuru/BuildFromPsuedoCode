@@ -17,7 +17,7 @@ public class EventListenerRegistry {
         listeners.remove(eventListener);
     }
 
-    static void notify(Event e) {
+    public static void notify(Event e) {
         for(EventListener listener: listeners) {
             listener.onEvent(e);
         }
