@@ -1,4 +1,4 @@
-package org.example;
+package org.example.helper;
 
 import org.example.model.Event;
 import org.example.model.EventListener;

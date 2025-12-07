@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.helper.EventListenerRegistry;
 import org.example.model.Event;
 
 import java.time.LocalDateTime;
