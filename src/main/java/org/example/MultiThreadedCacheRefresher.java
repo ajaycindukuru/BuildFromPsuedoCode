@@ -18,7 +18,7 @@ public class MultiThreadedCacheRefresher {
     static ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     static ExecutorService reader = Executors.newFixedThreadPool(5);
     static RefreshListener refreshListener= new LoggingRefreshListener();
-
+    static AtomicLong refreshedCount = new AtomicLong();
 
     public static void main(String[] args) throws InterruptedException {
         new Thread(() -> {
@@ -31,7 +31,6 @@ public class MultiThreadedCacheRefresher {
 
         scheduler.scheduleAtFixedRate(() -> {
             var allProducts = productService.getProducts();
-            AtomicLong refreshedCount = new AtomicLong();
             for (ProductInfo product: allProducts) {
                 products.compute(product.getProductName(), (k, v) -> {
                     refreshedCount.getAndIncrement(); return product;});
@@ -62,7 +61,7 @@ public class MultiThreadedCacheRefresher {
     private static void addProducts() throws InterruptedException {
         productService.addProduct(new ProductInfo(1, "Apple iPhone", new AtomicInteger(100), 1400));
         productService.addProduct(new ProductInfo(2, "Samsung Galaxy", new AtomicInteger(100), 900));
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         productService.updateProductPrice(1, new AtomicInteger(90));
         Thread.sleep(2000);
         productService.updateProductPrice(2, new AtomicInteger(75));
